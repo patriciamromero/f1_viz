@@ -5,6 +5,9 @@ import seaborn as sns             # Para gráficos más avanzados y estéticos
 import streamlit as st
 import unicodedata
 
+st.title('Formula 1 historical data report')
+st.subheader('🚧 Work in progress 🚧')
+
 drivers = pd.read_csv("drivers.csv", index_col=None)
 fastest_laps = pd.read_csv("fastest_laps_.csv")
 teams = pd.read_csv("teams.csv")
@@ -13,6 +16,7 @@ drivers_24 = pd.read_csv("drivers_2024_final.csv")
 fastest_laps_24 = pd.read_csv("fastest_laps_2024.csv")
 teams_24 = pd.read_csv("teams_2024_fixed.csv")
 
+st.header('2024 Formula 1 drivers')
 drivers_24
 
 drivers_completed = pd.concat([drivers, drivers_24])
@@ -172,7 +176,8 @@ sns.color_palette("pastel")
 plt.xticks(rotation=90)  # Rotar etiquetas del eje X
 plt.xlabel("Nationality")
 plt.ylabel("Number of Drivers")
-plt.title("Drivers per Country in F1")
+
+st.header('Drivers per Country in F1')
 
 st.pyplot(plt)
 
@@ -181,7 +186,8 @@ plt.figure(figsize=(10,5))
 sns.lineplot(x = drivers_per_year.index, y = drivers_per_year.values, marker = "o")
 plt.xlabel("Year")
 plt.ylabel("Drivers")
-plt.title("Number of drivers per year")
+
+st.header("Number of drivers per year")
 
 st.pyplot(plt)
 
@@ -194,7 +200,9 @@ fastest_laps_per_year = fastest_laps.groupby('year')["Time"].mean()
 plt.figure(figsize=(12,6))
 sns.lineplot(x = fastest_laps_per_year.index, y= fastest_laps_per_year.values, marker = "o")
 plt.xlabel("Year")
-plt.ylabel(" AVG fastest lap (seconds)")
+plt.ylabel("AVG fastest lap (seconds)")
+
+st.header('AVG fastest lap times per year')
 
 st.pyplot(plt)
 
@@ -206,10 +214,11 @@ teams_points_year = teams_points_year.sort_values(ascending=False)
 plt.figure(figsize= (24, 6))
 plt.bar(x = teams_points_year.index, height = teams_points_year.values)
 plt.xticks(rotation=90)
-plt.suptitle("Points won by team since 1958")
-plt.title("* over 150")
+plt.suptitle("All the teams represented here got over 150 points in total")
 plt.xlabel("Team")
 plt.ylabel("Points")
+
+st.header("Points won by team since 1958")
 
 st.pyplot(plt)
 
@@ -220,9 +229,11 @@ drivers_points = drivers_points.sort_values(ascending = False).head(10)
 plt.figure(figsize= (12, 6))
 plt.bar(x = drivers_points.index, height = drivers_points.values)
 plt.xticks(rotation=90)
-plt.title("Top 10 drivers by points")
 plt.xlabel("Driver")
 plt.ylabel("Points")
+
+
+st.header("Top 10 drivers by points")
 
 st.pyplot(plt)
 
